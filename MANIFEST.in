@@ -1,0 +1,18 @@
+include MANIFEST.in
+include requirements.txt
+include *.json
+include *.md
+include *.py
+include *.txt
+recursive-include latechnologies_erpnext *.css
+recursive-include latechnologies_erpnext *.csv
+recursive-include latechnologies_erpnext *.html
+recursive-include latechnologies_erpnext *.ico
+recursive-include latechnologies_erpnext *.js
+recursive-include latechnologies_erpnext *.json
+recursive-include latechnologies_erpnext *.md
+recursive-include latechnologies_erpnext *.png
+recursive-include latechnologies_erpnext *.py
+recursive-include latechnologies_erpnext *.svg
+recursive-include latechnologies_erpnext *.txt
+recursive-exclude latechnologies_erpnext *.pyc
