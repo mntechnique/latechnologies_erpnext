@@ -120,3 +120,20 @@ app_license = "GPL v3"
 # 	"frappe.desk.doctype.event.event.get_events": "latechnologies_erpnext.event.get_events"
 # }
 
+
+fixtures = [
+	{"dt": "Custom Field", "filters": [["name", "in", [
+		"Opportunity-la_lead_details_sb",
+		"Opportunity-la_estimated_closure_date"
+		"Opportunity-la_estimated_closure_month",
+		"Opportunity-la_estimated_total_value",
+		"Opportunity-la_ps_benchmark",
+		"Opportunity-la_total_no_of_endpoints",
+		"Opportunity-la_cb",
+		"Opportunity-la_total_no_of_branches",
+		"Opportunity-la_conf_call_schedule",
+		"Opportunity-la_domain_expert_ps",
+		"Opportunity-la_technology_name",
+		"Opportunity-la_oem_name"
+	]]]}
+]
