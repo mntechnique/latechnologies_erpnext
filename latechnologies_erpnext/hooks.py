@@ -124,7 +124,7 @@ app_license = "GPL v3"
 fixtures = [
 	{"dt": "Custom Field", "filters": [["name", "in", [
 		"Opportunity-la_lead_details_sb",
-		"Opportunity-la_estimated_closure_date"
+		"Opportunity-la_estimated_closure_date",
 		"Opportunity-la_estimated_closure_month",
 		"Opportunity-la_estimated_total_value",
 		"Opportunity-la_ps_benchmark",
