@@ -32,8 +32,8 @@ class LAOpportunity(TransactionBase):
 		if not self.enquiry_from:
 			frappe.throw(_("Opportunity From field is mandatory"))
 
-		self.validate_item_details()
-		self.validate_uom_is_integer("uom", "qty")
+		# self.validate_item_details()
+		# self.validate_uom_is_integer("uom", "qty")
 		self.validate_lead_cust()
 		self.validate_cust_name()
 
