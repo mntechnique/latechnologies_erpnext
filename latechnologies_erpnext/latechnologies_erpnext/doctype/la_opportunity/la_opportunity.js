@@ -75,7 +75,6 @@ frappe.ui.form.on("LA Opportunity", {
 			}
 		}
 	},
-
 	set_contact_link: function(frm) {
 		if(frm.doc.customer) {
 			frappe.dynamic_link = {doc: frm.doc, fieldname: 'customer', doctype: 'Customer'}
@@ -89,7 +88,8 @@ frappe.ui.form.on("LA Opportunity", {
 			method: "latechnologies_erpnext.latechnologies_erpnext.doctype.la_opportunity.la_opportunity.make_supplier_quotation",
 			frm: cur_frm
 		})
-	}
+	},
+
 })
 
 // TODO commonify this code
@@ -212,3 +212,21 @@ cur_frm.cscript['Declare Opportunity Lost'] = function() {
 	});
 	dialog.show();
 }
+
+frappe.ui.form.on("LA Opportunity Item", "estimated_value", function(frm, cdt, cdn) {
+   	var total = 0.0;
+	for(var i in frm.doc.items) {
+		total = total + (frm.doc.items[i].estimated_value ? frm.doc.items[i].estimated_value : 0.0)
+	}
+   	frm.set_value("la_estimated_total_value", total);
+   	console.log("value", total);
+});
+
+// frappe.ui.form.on("Opportunity Item", "item_code", function(frm, cdt, cdn) {
+//    	var total = 0.0;
+// 	for(var i in frm.doc.items) {
+// 		total = total + (frm.doc.items[i].estimated_value ? frm.doc.items[i].estimated_value : 0.0)
+// 	}
+//    	frm.set_value("la_estimated_total_value", total);
+//    	console.log("value", total);
+// });
