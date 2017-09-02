@@ -218,15 +218,55 @@ frappe.ui.form.on("LA Opportunity Item", "estimated_value", function(frm, cdt, c
 	for(var i in frm.doc.items) {
 		total = total + (frm.doc.items[i].estimated_value ? frm.doc.items[i].estimated_value : 0.0)
 	}
-   	frm.set_value("la_estimated_total_value", total);
+   	frm.set_value("sales_items_total_amount", total);
    	console.log("value", total);
 });
 
-// frappe.ui.form.on("Opportunity Item", "item_code", function(frm, cdt, cdn) {
-//    	var total = 0.0;
-// 	for(var i in frm.doc.items) {
-// 		total = total + (frm.doc.items[i].estimated_value ? frm.doc.items[i].estimated_value : 0.0)
-// 	}
-//    	frm.set_value("la_estimated_total_value", total);
-//    	console.log("value", total);
-// });
+frappe.ui.form.on("LA Opportunity Presales Item", {
+	item_code: function(frm, cdt, cdn) {
+		// frappe.model.with_doc("LA Opportunity Presales Item", fiscal_year, function(r) {
+		// 	var fy = frappe.model.get_doc("Fiscal Year", fiscal_year);
+		// 	frappe.query_report_filters_by_name.from_date.set_input(fy.year_start_date);
+		// 	frappe.query_report_filters_by_name.to_date.set_input(fy.year_end_date);
+		// 	query_report.trigger_refresh();
+		// });
+		var row = locals[cdt][cdn];
+		frappe.db.get_value("Item Price", 
+			{"price_list":"Standard Selling", "item_code":"I1"}, 
+			"price_list_rate", 
+			function(r) { 
+				//console.log(r)
+				row.rate = r.price_list_rate;
+				cur_frm.refresh_field("presales_items");
+			}
+		)
+		console.log("item_code")
+		calculate_presales_total(frm);
+	},
+	qty: function(frm, cdt, cdn) {
+		var row = locals[cdt][cdn];
+		if (row.rate > 0) {
+			row.amount = row.rate * row.qty;
+		}
+		cur_frm.refresh_field("presales_items");
+		console.log("qty")
+		calculate_presales_total(frm);
+	},
+	items_add: function(frm, cdt, cdn) {
+		calculate_presales_total(frm);
+		//console.log("items_add")
+	},
+	items_remove: function(frm, cdt, cdn) {
+		calculate_presales_total(frm);	
+		//console.log("items_remove")
+	},
+});
+
+function calculate_presales_total(frm) {
+	var total = 0.0;
+	for(var i in frm.doc.presales_items) {
+		total = total + (frm.doc.presales_items[i].amount ? frm.doc.presales_items[i].amount : 0.0)
+	}
+   	frm.set_value("presales_items_total_amount", total);
+   	console.log("value", total);
+}
